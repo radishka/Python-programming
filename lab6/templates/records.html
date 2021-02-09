@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS Reader</title>
+</head>
+<body>
+<h1>RSS Reader</h1>
+<h2>{{ tape.title }} ({{ tape.url }})</h2>
+<form action="/tapes/{{ tape._id }}/records" method="POST">
+    <input type="submit" value="Обновить">
+</form>
+{% for record in records %}
+<div>
+    <h3>{{ record.title }}</h3>
+    <p>{{ record.published }}</p>
+    <p>{{ record.summary }}</p>
+    <a href="{{ record.link }}">Подробнее</a>
+</div>
+{% endfor %}
+<br>
+<div>
+    {% for page in pages %}
+    {%  if pagination.page == page %}
+    <a href="/tapes/{{ tape._id }}/records?page={{ page }}&size={{ pagination.size }}" style="color: red">{{ page + 1 }}</a>
+    {% else %}
+    <a href="/tapes/{{ tape._id }}/records?page={{ page }}&size={{ pagination.size }}" style="color: black">{{ page + 1 }}</a>
+    {% endif %}
+    {% endfor %}
+</div>
+
+</body>
+</html>

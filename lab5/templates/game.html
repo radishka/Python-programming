@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Угадай Кто?</title>
+</head>
+<body>
+<h1>Кто это?</h1>
+<form action="/games/{{ game_uuid }}" method="POST">
+    {% for image in images %}
+        <img src="{{ image }}">
+    {% endfor %}
+    {% for option in options %}
+        <div>
+            <br>
+              <input type="radio"
+                     id="answer_choice_{{ option }}"
+                     name="answer_choice"
+                     value="{{ option }}">
+        <label for="answer_choice_{{ option }}">{{ option }}</label>
+        </div>
+    {% endfor %}
+    <br>
+    <input type="submit" value="Выбрать">
+</form>
+{%  if message %}
+    <br>
+    <p>{{ message }}</p>
+{% endif %}
+{% if message == 'Правильно!' %}
+
+<form action="/games" method="GET">
+    <input type="submit" value="Назад">
+</form>
+{%  if level %}
+<form action="/games" method="POST">
+    <input type="hidden" name="level" value="{{ level }}">
+    <input type="submit" value="Вперед">
+</form>
+{% endif %}
+{% endif %}
+</body>
+</html>

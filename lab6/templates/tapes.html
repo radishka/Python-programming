@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS Reader</title>
+</head>
+<body>
+<h1>RSS Reader</h1>
+<form action="/tapes" method="POST">
+    <label for="title">Название:</label>
+    <input id="title" name="title" type="text"/>
+    <label for="url">URL:</label>
+    <input id="url" name="url" type="url"/>
+    <input type="submit" value="Добавить">
+</form>
+{% for tape in tapes %}
+<div>
+    <h2>{{ tape.title }} ({{ tape.url }})</h2>
+    <a href="/tapes/{{ tape._id }}/records">Подробнее</a>
+    <form action="/tapes/{{ tape._id }}/records" method="POST">
+        <input type="submit" value="Обновить">
+    </form>
+</div>
+{% endfor %}
+</body>
+</html>
